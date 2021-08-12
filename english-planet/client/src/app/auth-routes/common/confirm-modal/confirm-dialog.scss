@@ -1,0 +1,25 @@
+@import "../dialog/dialog-theme";
+
+
+.confirm-dialog-wrapper-z33 {
+  .main {
+    padding: 0 !important;
+    min-height: 151px;
+  }
+}
+
+.confirm-dialog-z33 {
+  @include dialog-theme;
+  font-size: 16px;
+  color: #546B81;
+
+  .message {
+    margin-bottom: 24px;
+  }
+
+  .buttons {
+    text-align: right;
+  }
+
+
+}

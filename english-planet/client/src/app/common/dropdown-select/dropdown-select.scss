@@ -1,0 +1,116 @@
+@import "../styles/fonts";
+@import "../styles/scrollbars.scss";
+
+.dropdown-select-5gy {
+  padding-top: 16px;
+  position: relative;
+  //margin-bottom: 20px;
+  user-select: none;
+
+  &.has-info {
+    padding-right: 30px;
+    position: relative;
+
+    .info-tooltip {
+      position: absolute;
+      right: -30px;
+      bottom: 0;
+
+      .material-icons {
+        font-size: 18px;
+        color: #8f9eac;
+      }
+    }
+  }
+
+  & > .label {
+    position: absolute;
+    top: -1px;
+    left: 0;
+
+    @include nunito-regular();
+    line-height: 16px;
+    color: $font-default-light;
+  }
+
+  & > .dropdown {
+    @include nunito-regular(13px);
+    line-height: 18px;
+
+    & > .toggle {
+      height: 22px;
+      border-bottom: 1px solid #E9ECEF;
+      position: relative;
+      cursor: pointer;
+      background: transparent;
+
+      & > .placeholder-text {
+        opacity: 0.5;
+      }
+
+      & > i.fa-chevron-down {
+        position: absolute;
+        top: 3px;
+        right: 2px;
+        width: 14px;
+        height: 14px;
+        color: $font-default-light;
+        font-size: 10px;
+      }
+
+      &.expanding {
+        border-bottom: 1px solid $blue;
+      }
+    }
+
+    & > .expand {
+      box-shadow: 0 2px 4px 0 #0000001F;
+      background: $white;
+
+      & > .list {
+        max-height: 300px;
+        overflow: auto;
+        @include scrollbar-default;
+
+        & > .item {
+          padding: 10px;
+          cursor: pointer;
+          white-space: nowrap;
+
+          &.selected {
+            background: #d4dadf;
+          }
+
+          &:hover {
+            background: $hover-blue;
+          }
+
+          &.disabled {
+            opacity: 0.5;
+          }
+
+        }
+      }
+    }
+  }
+
+  &.hasError {
+    & > .label {
+      color: $danger;
+    }
+
+    & > .error-message {
+      @include nunito-regular();
+      color: $danger;
+      position: absolute;
+    }
+
+    & > .dropdown {
+
+      & > .toggle {
+        border-bottom-color: $danger;
+      }
+    }
+  }
+
+}

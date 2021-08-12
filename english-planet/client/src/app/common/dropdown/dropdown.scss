@@ -1,0 +1,15 @@
+
+.dropdown-jd2389 {
+  position: relative;
+
+  &.disabled {
+    & > .toggle {
+      cursor: not-allowed !important;
+    }
+  }
+
+  & > .expand {
+    position: fixed;
+    z-index: 100;
+  }
+}

@@ -1,0 +1,44 @@
+import React from 'react';
+import {cs, consumeContext, Load2, State} from 'cs-react';
+import {cx} from "emotion";
+import "./enrollment-list.scss";
+import {EnrollmentPanel} from './enrollment-panel';
+import {replaceFind} from '../../../../../../../common/utils/collections';
+
+export const EnrollmentList = ({enrollments, onRemove, showByStudent}) => cs(
+    consumeContext("resolve"),
+    ["selected", (_, next) => State({
+        initValue: enrollments.value[0]?.id,
+        next,
+    })],
+    ({selected, resolve}) => {
+        return (
+            <div className="enrollment-list-54g">
+                {enrollments.loading ? "Loading..." : (<>
+                    <div className="left-menu">
+                        {enrollments.value?.map((erm, i) => {
+                            return (
+                                <div
+                                    key={erm.id}
+                                    className={cx("enrollment", {selected: erm.id === selected.value})}
+                                    onClick={() => selected.onChange(erm.id)}
+                                >
+                                    {showByStudent ? resolve.getStudent(erm.student_id).name : resolve.getClass(erm.class_id).name}
+                                </div>
+                            );
+                        })}
+
+                    </div>
+                    <div className="main-panel" key={selected.value}>
+                        {EnrollmentPanel({
+                            enrollment: {
+                                value: enrollments.value.find((e) => e.id === selected.value),
+                                onChange: (update) => enrollments.onChange(replaceFind(enrollments.value, update, (e) => e.id === update.id)),
+                            },
+                        })}
+                    </div>
+                </>)}
+            </div>
+        )
+    }
+);

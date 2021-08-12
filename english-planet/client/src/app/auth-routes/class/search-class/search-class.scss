@@ -1,0 +1,22 @@
+@import "../../../common/styles/buttons.scss";
+@import "../../../common/styles/form.scss";
+
+.search-class-56s {
+	& > .flex-group {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+
+		& > .form-group {
+			@include form-group;
+			margin-right: 10px;
+			margin-bottom: 0;
+		}
+		
+		& > .search-btn {
+			& > button.primary {
+				@include button-primary;
+			}
+		}
+	}
+}

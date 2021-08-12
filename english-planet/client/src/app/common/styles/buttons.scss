@@ -1,0 +1,89 @@
+@import "./fonts.scss";
+
+@mixin button() {
+  @include nunito-bold(13px);
+  line-height: 18px;
+  letter-spacing: 0;
+  padding: 7px 23px;
+  border-radius: 6px;
+  outline: none;
+  text-align: center;
+  cursor: pointer;
+  //white-space: nowrap;
+
+  &:disabled, &.disabled {
+    opacity: .3;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-small() {
+  font-size: 10px;
+  padding: 2px 6px;
+}
+
+
+@mixin button-primary() {
+  @include button;
+  color: $white;
+  background: $primary;
+  border: 1px solid $primary;
+
+  &:hover:not(:disabled):not(.disabled) {
+    background: rgba($primary, .9);
+  }
+  &:disabled, &.disabled {
+    opacity: .3;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-danger() {
+  @include button;
+  color: $danger;
+  border: 1px solid $danger;
+  background: white;
+
+  &:hover:not(:disabled):not(.disabled) {
+    background: rgba($danger, .1);
+  }
+  &:disabled, &.disabled {
+    opacity: .3;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-outline-gray() {
+  @include button;
+  color: #919EB0;
+  background: #fff;
+  border: 1px solid #D4DEE8;
+  &:hover:not(:disabled):not(.disabled) {
+    opacity: 0.85;
+  }
+}
+
+@mixin button-default() {
+  @include button;
+  border: 1px solid $blue;
+  background: #FBFBFC;
+  color: $blue;
+  &:hover:not(:disabled):not(.disabled) {
+    background: #e5f0fa;
+  }
+}
+
+@mixin button-outline-primary() {
+  @include button;
+  color: $primary;
+  border: 1px solid $primary;
+  background: white;
+
+  &:hover:not(:disabled):not(.disabled) {
+    background: rgba($primary, .1);
+  }
+  &:disabled, &.disabled {
+    opacity: .3;
+    cursor: not-allowed;
+  }
+}

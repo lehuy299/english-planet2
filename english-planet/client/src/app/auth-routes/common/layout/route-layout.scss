@@ -1,0 +1,18 @@
+
+@mixin route-layout {
+  position: relative;
+	& > .title {
+		@include nunito-bold(25px);
+		margin-bottom: 20px;
+	}
+
+	& > .controls {
+		position: absolute;
+		top: 0;
+		right: 0;
+
+		& > button.primary {
+			@include button-primary;
+		}
+	}   
+}

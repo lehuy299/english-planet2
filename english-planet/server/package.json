@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init-db": "cd ./db/db-services && node run-init-db.js",
+    "seed": "knex seed:run",
+    "start-server-dev": "cd ./src && node start-server-dev.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "knex": "^0.95.6",
+    "luxon": "^1.28.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
+    "uuid": "^8.3.2"
+  }
+}

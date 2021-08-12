@@ -1,0 +1,15 @@
+@import "../../common/styles/fonts.scss";
+@import "../../common/styles/buttons.scss";
+@import "../common/layout/route-layout.scss";
+
+.timetable-2l5 {
+  @include route-layout;
+
+  & > .timetable-panel {
+    height: calc(100% - 54px);
+
+    & > .content {
+      height: 100%;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+@import "../../../common/styles/fonts.scss";
+
+.class-date-card-4h3 {
+  @include nunito-regular(12px);
+  padding: 8px;
+  background: #4B49AC;
+  color: #fff;
+  border-radius: 4px;
+
+  & > .line {
+    margin-bottom: 5px;
+    
+    & > .hour {
+      font-weight: 600;
+      display: inline-block;
+    }
+    & > .room {
+      display: inline-block;
+      margin-left: 5px;
+      padding-left: 5px;
+      border-left: 1px solid white;
+    }
+
+    & > .name {
+      display: inline-block;
+    }
+  }    
+}

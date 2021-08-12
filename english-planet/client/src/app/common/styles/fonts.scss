@@ -1,0 +1,24 @@
+@import "./colors.scss";
+
+$letter-spacing: 0.04em;
+
+@mixin nunito-regular($size: 12px) {
+  font-size: $size;
+  font-weight: 400;
+  color: $font-default;
+  letter-spacing: $letter-spacing;
+}
+
+@mixin nunito-medium($size: 12px) {
+  font-size: $size;
+  font-weight: 500;
+  color: $font-default;
+  letter-spacing: $letter-spacing;
+}
+
+@mixin nunito-bold($size: 12px) {
+  font-size: $size;
+  font-weight: 700;
+  color: $font-default;
+  letter-spacing: $letter-spacing;
+}

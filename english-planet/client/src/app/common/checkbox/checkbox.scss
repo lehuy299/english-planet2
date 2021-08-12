@@ -1,0 +1,32 @@
+
+.checkbox-3we {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  border: 2px solid #d4dadf;
+  transition: background-color 300ms;
+  vertical-align: top;
+  cursor: pointer;
+
+  &.checked {
+    background: #294661;
+    border-color: transparent;
+  }
+
+  &.disabled {
+    background: #8F9EAC !important;
+  }
+
+  text-align: center;
+  font-size: 10px;
+  line-height: 10px;
+
+  & > i {
+    color: white;
+    position: relative;
+    top: -1px;
+    font-size: 12px;
+    left: -1px;
+  }
+}

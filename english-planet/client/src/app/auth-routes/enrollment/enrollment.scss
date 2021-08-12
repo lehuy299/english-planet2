@@ -1,0 +1,33 @@
+@import "../../common/styles/fonts.scss";
+@import "../../common/styles/buttons.scss";
+@import "../common/layout/route-layout.scss";
+@import "../../common/styles/form.scss";
+
+.enrollment-53d {
+	@include route-layout;
+  
+  & > .card, & > .card-expandable {
+		margin-bottom: 10px;
+	}
+
+  & > .search-panel > .content {
+    & > .flex-group {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+
+      & > .form-group {
+        @include form-group;
+        margin-right: 10px;
+        margin-bottom: 0;
+        min-width: 200px;
+      }
+      
+      // & > .search-btn {
+      //   & > button.primary {
+      //     @include button-primary;
+      //   }
+      // }
+    }
+  }
+}

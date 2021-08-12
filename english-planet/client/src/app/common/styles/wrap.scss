@@ -1,0 +1,28 @@
+
+// @mixin wrap($padding, $count) {
+//   margin: 0 (-$padding/2);
+
+//   &:after {
+//     content: "";
+//     display: block;
+//     position: static;
+//     clear: both;
+//   }
+
+//   .col {
+//     float: left;
+//     width: (100%/$count);
+//     padding: 0 ($padding/2);
+//   }
+// }
+
+@mixin wrap($padding, $count) {
+
+  > * {
+    width: calc( #{100%/$count} - #{$padding*($count - 1)/$count});
+    display: inline-block;
+  }
+  > *:not(:last-child) {
+    margin-right: $padding;
+  }
+}

@@ -1,0 +1,88 @@
+@import "../../common/styles/fonts";
+
+.data-table-f24 {
+  width: 100%;
+  border-collapse: collapse;
+  @include nunito-regular(14px);
+  color: $font-default-light;
+
+  & > thead > tr > th, & > tbody > tr > td {
+    padding: 18px 22px;
+    white-space: nowrap;
+  }
+
+  & > thead {
+    & > tr {
+      border-bottom: 1px solid grey;
+
+      & > th {
+        padding: 18px 22px;
+        text-transform: uppercase;
+        font-weight: 400;
+
+
+        text-align: left;
+        position: relative;
+        //cursor: pointer;
+        user-select: none;
+
+        &.align-right {
+          text-align: right;
+        }
+
+
+        &.align-center {
+          text-align: center;
+        }
+
+        &.sorting-enabled {
+          padding-right: 23px;
+          cursor: pointer;
+        }
+
+        & > i {
+          position: absolute;
+          top: 50%;
+          right: 8px;
+          transform: translateY(-50%);
+          opacity: 0.2;
+        }
+
+        &.sorting-active {
+          & > i {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  & > tbody {
+    & > tr {
+      border-bottom: 1px solid grey;
+      background: #fff;
+
+      & > td.shy {
+        opacity: 0;
+      }
+
+      &:hover {
+        background: #eaeaf1;
+
+        & > td.shy {
+          opacity: 1;
+        }
+      }
+
+      & > td {
+        &.align-right {
+          text-align: right;
+        }
+
+        &.align-center {
+          text-align: center;
+        }
+      }
+    }
+  }
+}

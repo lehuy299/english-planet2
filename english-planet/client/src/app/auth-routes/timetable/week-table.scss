@@ -1,0 +1,60 @@
+@import "../../common/styles/fonts.scss";
+@import "../../common/styles/buttons.scss";
+
+.week-table-4f1 {
+  height: 100%;
+
+  & > .select-week {
+    width: max-content;
+    margin: 0 auto;
+
+    & > .select-week-range {
+      margin-bottom: 10px;
+
+      & > .toggle {
+        @include nunito-medium(16px);
+      }
+    }
+  }
+
+  & > .remind {
+    font-style: italic;
+  }
+
+  & > .table {
+    height: calc(100% - 22px - 10px);
+
+    & > .header {
+      display: flex;
+  
+      & > .date {
+        flex: 1 1 0;
+        text-align: center;
+        padding: 15px 0;
+        @include nunito-bold(16px);
+      }
+    }
+  
+    & > .main {
+      display: flex;
+      height: calc(100% - 52px);
+      border: 1px solid black;
+      border-radius: 5px;
+  
+      & > .date-column {
+        flex: 1 1 0;
+        height: 100%;
+        padding: 10px;
+        overflow: auto;
+        
+        &:not(:last-child) {
+          border-right: 1px solid black;
+        }
+  
+        & > .item-card {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}

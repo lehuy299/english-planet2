@@ -1,0 +1,42 @@
+@import "../../../common/styles/fonts.scss";
+@import "../../../common/styles/colors.scss";
+
+@mixin card-style {
+	padding: 20px;
+	background: #fff;
+	border-radius: 20px;
+	
+
+	& > .title {
+		@include nunito-regular(18px);
+		font-weight: 600;
+		margin-bottom: 20px;
+	}
+}
+
+.card-54g {
+	@include card-style;
+}
+
+.card-expandable-5df {
+	@include card-style;
+	max-height: 64px;
+	position: relative;
+	transition: max-height 0.3s ease;
+
+	&.expanding {
+		max-height: fit-content;
+	}
+
+	& > .toggle {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		cursor: pointer;
+
+		& > i {
+			font-size: 16px;
+			color: $font-default;
+		}
+	}
+}

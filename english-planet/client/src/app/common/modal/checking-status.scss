@@ -1,0 +1,13 @@
+@import "../../../../../common/ui-components/styles/colors";
+
+@mixin checking-status {
+  &.loading {
+    color: #D4DADF;
+  }
+  &.valid {
+    color: $green;
+  }
+  &.invalid {
+    color: $danger;
+  }
+}

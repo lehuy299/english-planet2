@@ -1,0 +1,22 @@
+
+.enrollment-list-54g {
+  display: flex;
+
+    & > .left-menu {
+      flex: 0 0 200px;
+
+      & > .enrollment {
+        &.selected {
+          border: 1px solid red;
+        }
+        &.disabled {
+          border: 1px solid black;
+          pointer-events: none;
+        }
+      }
+    }
+
+    & > .main-panel {
+      flex: 1 1 auto;
+    }
+}

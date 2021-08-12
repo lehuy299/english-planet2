@@ -1,0 +1,105 @@
+@import "../../common/styles/buttons";
+@import "../../common/styles/fonts.scss";
+@import "../../common/styles/colors.scss";
+@import "../../common/styles/scrollbars.scss";
+@import "../../common/styles/form.scss";
+@import "../../common/styles/wrap.scss";
+@import "./modal.scss";
+
+@mixin modal-buttons {
+  & > button {
+      &:not(:first-child) {
+        margin-left: 10px;
+      }
+    }
+    & > button.primary {
+      @include button-primary;
+    }
+    & > button.danger {
+      @include button-danger;
+    }
+    & > button:not(.primary .danger) {
+      @include button-outline-primary;
+
+      font-weight: 700;
+      font-size: 13px;
+    }
+}
+
+@mixin modal-footer {
+  & > .footer {
+    background: white;
+    border-radius: 0 0 6px 6px;
+    border-top: 1px solid #CED4DA;
+    padding: 15px 25px;
+    width: 100%;
+    text-align: right;
+
+    @include modal-buttons();
+  }
+}
+
+@mixin modal-footer-2 {
+  & > .footer {
+    background: white;
+    border-radius: 0 0 6px 6px;
+    border-top: 1px solid #CED4DA;
+    padding: 15px 25px;
+
+    & > .left, & > .right {
+      @include modal-buttons();
+    }
+    & > .left {
+      display: inline-block;
+    }
+    & > .right {
+      float: right;
+    }
+  }
+}
+
+@mixin modal-body {
+  & > .modal-body {
+    padding: 25px 25px 25px 25px;
+
+    max-height: calc(100vh - #{$boxTop * 2} - #{$headerHeight} - 56px); // 56px is buttons div height
+    overflow: auto;
+    @include scrollbar-default2();
+
+    & > .messages {
+      margin-bottom: 25px;
+      & > .message {
+        font-size: 14px;
+        color: $font-default-light;
+
+        &:not(:first-child) {
+          margin-top: 18px;
+        }
+
+        &.error {
+          color: $danger;
+        }
+      }
+    }
+
+    & > .form-group {
+      @include form-group;
+    }
+    & > .line {
+      @include wrap(10px , 2);
+      & > .form-group {
+        @include form-group;
+      }
+    }
+  }
+}
+
+@mixin modal-theme {
+  @include modal-body();
+  @include modal-footer();
+}
+
+@mixin modal-theme-2 {
+  @include modal-body();
+  @include modal-footer-2();
+}

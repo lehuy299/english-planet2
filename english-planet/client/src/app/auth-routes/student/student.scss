@@ -1,0 +1,11 @@
+@import "../../common/styles/fonts.scss";
+@import "../../common/styles/buttons.scss";
+@import "../common/layout/route-layout.scss";
+
+.student-1j4 {
+	@include route-layout;
+  
+  & > .card, & > .card-expandable {
+		margin-bottom: 10px;
+	}
+}

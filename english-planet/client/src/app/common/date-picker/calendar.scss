@@ -1,0 +1,144 @@
+@import "../styles/buttons.scss";
+
+.calendar-j4938 {
+  width: 260px;
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+  // z-index: 100;
+  // position: absolute;
+  // top: calc(100% + 1px);
+  // left: 0;
+  background: white;
+
+  // &:after {
+  //   content: "";
+  //   position: absolute;
+  //   top: -10px;
+  //   left: 11.2px;
+  //   width: 0;
+  //   height: 0;
+  //   border: 5px solid transparent;
+  //   border-bottom-color: white;
+  // }
+
+  // &:before {
+  //   content: "";
+  //   position: absolute;
+  //   top: -14px;
+  //   left: 9px;
+  //   width: 0;
+  //   height: 0;
+  //   border: 7px solid transparent;
+  //   border-bottom-color: #ccc;
+  // }
+
+  & > .header-controls {
+    position: relative;
+    height: 21px;
+    text-align: center;
+    padding-bottom: 3px;
+
+    & > select {
+      display: inline-block;
+      width: 80px;
+      height: 23px;
+      font-size: 14px;
+      font-weight: bold;
+
+      &.month {
+        margin-right: 5px;
+      }
+    }
+
+    & .btn-nav-style {
+      @include button-default();
+      height: 23px;
+      position: absolute !important;
+      top: 0;
+      line-height: 21px;
+      padding: 0 6px;
+      border: none;
+
+      i {
+        font-size: 14px;
+      }
+
+      &.btn-left {
+        left: 0;
+      }
+
+      &.btn-right {
+        right: 0;
+      }
+
+    }
+
+  }
+
+  & > .date-picker-panel {
+    padding: 20px 5px 5px 5px;
+
+    & > div {
+      & > div {
+        vertical-align: top;
+        display: inline-block;
+        width: calc(100%/7);
+        height: 27px;
+        text-align: center;
+
+        label {
+          line-height: 26px;
+        }
+      }
+    }
+
+    & .header-row {
+      label {
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+
+    & .date-row {
+      div {
+        height: 31px;
+        line-height: 31px;
+        cursor: pointer;
+
+        &:hover {
+          background: #dadada;
+          border: 1px solid #dadada;
+          line-height: 29px;
+        }
+
+        &.today {
+          border: 1px solid #eee;
+          background: #eee;
+          line-height: 29px;
+
+          label {
+            color: #555;
+          }
+        }
+
+        &.selected {
+          border: 1px solid #00b3f0;
+          background: #00b3f0;
+          line-height: 29px;
+
+          label {
+            color: #fff;
+          }
+        }
+      }
+
+      label {
+        font-size: 14px;
+        cursor: pointer;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,105 @@
+@import "../styles/colors";
+
+.dropdown-select-chips-0s9 {
+
+  &.has-error {
+    padding-right: 28px;
+    position: relative;
+
+
+    .warning-icon {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      cursor: pointer;
+      transform: translate(0, -50%);
+      color: #B00020;
+    }
+  }
+
+  & > .toggle {
+    position: relative;
+    display: flex;
+
+    & > .chips {
+      flex: 0 1 auto;
+      display: flex;
+      padding-top: 3px;
+      overflow: hidden;
+
+      & > .chip {
+        height: calc(100% - 4px);
+        background-color: #e9ecef;
+        padding: 0 33px 0 9px;
+        margin-right: 10px;
+        border-radius: 2px;
+        line-height: 31px;
+        position: relative;
+        color: #707070;
+
+        & > i {
+          position: absolute;
+          top: 3px;
+          right: 4px;
+          width: 22px;
+          height: 22px;
+          padding-top: 5px;
+          //background-color: white;
+          cursor: pointer;
+          text-align: center;
+
+          &:hover {
+            color: $danger;
+          }
+        }
+      }
+    }
+
+    & > input {
+      border: none;
+      outline: none;
+      flex: 1 1 0;
+      width: 100%;
+      display: block;
+    }
+
+    & > i.fa-chevron-down {
+      position: absolute;
+      top: 13px;
+      right: 6px;
+    }
+  }
+
+  & > .expand {
+
+    box-shadow: 0 2px 4px 0 #0000001F;
+    background: $white;
+
+    & > .list {
+      max-height: 350px;
+      overflow: auto;
+
+      & > .item {
+        padding: 10px;
+        cursor: pointer;
+        white-space: nowrap;
+        font-size: 13px;
+        font-weight: 400;
+        color: $font-default;
+
+        &.selected {
+          background: #d4dadf;
+        }
+        &:hover {
+          background: $hover-blue;
+        }
+
+        &.focused {
+          background: $blue;
+          color: white;
+        }
+
+      }
+    }
+  }
+}

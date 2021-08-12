@@ -1,0 +1,98 @@
+@import "../styles/buttons.scss";
+
+.week-calendar-j49 {
+  width: 260px;
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+  background: white;
+
+  & > .header-controls {
+    position: relative;
+    height: 21px;
+    text-align: center;
+    padding-bottom: 3px;
+
+    & > select {
+      display: inline-block;
+      width: 80px;
+      height: 23px;
+      font-size: 14px;
+      font-weight: bold;
+
+      &.month {
+        margin-right: 5px;
+      }
+    }
+
+    & .btn-nav-style {
+      @include button-default();
+      height: 23px;
+      position: absolute !important;
+      top: 0;
+      line-height: 21px;
+      padding: 0 6px;
+      border: none;
+
+      i {
+        font-size: 14px;
+      }
+
+      &.btn-left {
+        left: 0;
+      }
+
+      &.btn-right {
+        right: 0;
+      }
+
+    }
+
+  }
+
+  & > .week-picker-panel {
+    padding: 20px 5px 5px 5px;
+
+    & > div {
+      & > div {
+        vertical-align: top;
+        display: inline-block;
+        width: calc(100%/7);
+        text-align: center;
+        font-size: 14px;
+        padding: 4px 0;
+      }
+    }
+
+    & > .header-row {
+      & > div {
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+
+    & > .date-row {
+      cursor: pointer;
+
+      &:hover {
+        background: #dadada;
+      }
+
+      &.thisWeek {
+        background: #eee;
+        color: #555;
+      }
+
+      &.selected {
+        background: #00b3f0;
+        color: #fff;
+      }
+
+      & > .day.out {
+        opacity: .5;
+      }
+    }
+  }
+
+}

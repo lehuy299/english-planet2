@@ -1,0 +1,5 @@
+@import "../../../common/modal/modal-theme.scss";
+
+.edit-student-modal-2fa {
+    @include modal-theme-2;
+}

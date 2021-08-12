@@ -1,0 +1,12 @@
+@import "../styles/colors";
+
+.checkbox-line-group-q46 {
+  &.hasError {
+  }
+
+  & > .error-message {
+    color: $danger;
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+}
