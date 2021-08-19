@@ -1,56 +1,64 @@
 import React from "react";
-import {cs, consumeContext} from "cs-react";
-import {DropdownSelectSearch} from "../../../common/dropdown-select/dropdown-select-search";
-import {spc} from "../../../../../../../common/react/state-path-change";
-import {scope} from "../../../../../../../common/react/scope";
-import {DatePicker} from "../../../common/date-picker/date-picker";
-import {bindInputNumber} from "../../../../../../../common/react/bind-input-number";
+import {cs, consumeContext, Load} from "cs-react";
 import {equalDeep} from "../../../../../../../common/utils/equal-deep";
+import {EnrollmentForm} from "./enrollment-form";
+import {EnrollmentDetailsModal} from "../enrollment-modal/enrollment-details-modal";
+import "./enrollment-info.scss";
+import {ge, le} from "../../../../../../../common/utils/date-object";
+import {PerformanceReportModal} from "../enrollment-modal/performance-report-modal";
 
-export const EnrollmentInfo = ({enrollment, oriErm}) => cs(
+export const EnrollmentInfo = ({enrollment, oriErm, receipts, onDelete}) => cs(
     consumeContext("resolve"),
     consumeContext("apis"),
-    ({resolve, apis}) => {
+    ["allClassDates", ({apis}, next) => Load({
+        fetch: () => apis.classDate.getClassDatesOfClass(enrollment.value.class_id),
+        next,
+    })],
+    ["detailsModal", (_, next) => EnrollmentDetailsModal({next})],
+    ["performanceReportModal", (_, next) => PerformanceReportModal({next})],
+    ({resolve, apis, detailsModal, performanceReportModal, allClassDates}) => {
+        const classDates = allClassDates?.filter((cd) =>
+            (!enrollment.value.date_start || ge(cd.date, enrollment.value.date_start)) && (!enrollment.value.date_end || le(cd.date, enrollment.value.date_end))
+        );
         return (
-            <div className="enrollment-info">
-                <div className="form">
-                    <div className="student-name">{resolve.getStudent(enrollment.value.student_id)?.name}</div>
-                    <div className="class-name">{resolve.getClass(enrollment.value.class_id)?.name}</div>
-                    <div className="form-group">
-                        <div className="control-label">Class</div>
-                        {DropdownSelectSearch({
-                            list: resolve.classes,
-                            isSelected: (c) => enrollment.value.class_id === c.id,
-                            onChange: (c) => spc(enrollment, ["class_id"], () => c.id),
-                            valueToLabel: (c) => c.name,
-                            valueToSearch: (c) => c.name,
-                        })}
-                    </div>
-
-                    <div className="line">
-                        <div className="form-group">
-                            <div className="control-label">Start</div>
-                            {DatePicker({...scope(enrollment, ["date_start"])})}
-                        </div>
-                        <div className="form-group">
-                            <div className="control-label">End</div>
-                            {DatePicker({...scope(enrollment, ["date_end"])})}
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <div className="control-label">Fee</div>
-                        <input {...bindInputNumber(scope(enrollment, ["fee"]))} />
-                    </div>
-                </div>
-
-                <div className="buttons">
+            <div className="enrollment-info-8g3">
+                <div className="controls">
                     <button
+                        className="primary"
                         disabled={equalDeep(oriErm.value, enrollment.value)}
                         onClick={async () => {
                             const update = await apis.enrollment.upsertEnrollment(enrollment.value);
                             oriErm.onChange(update);
                         }}
                     >Save</button>
+                    <button
+                        className="default"
+                        disabled={!equalDeep(oriErm.value, enrollment.value)}
+                        onClick={() => detailsModal.show({enrollment: enrollment.value, classDates})}
+                    >Details</button>
+                    <button
+                        className="default"
+                        disabled={!equalDeep(oriErm.value, enrollment.value)}
+                        onClick={() => performanceReportModal.show({enrollment: enrollment.value, classDates})}
+                    >Performance</button>
+                    <button
+                        className="danger"
+                        onClick={async () => {
+                            if (!confirm("Are you sure?")) {
+                                return;
+                            }
+                            await apis.enrollment.deleteEnrollment(enrollment.value.id);
+                            onDelete(enrollment.value.id);
+                        }}
+                    >Delete</button>
+                </div>
+                <div className="form">
+                    {EnrollmentForm({
+                        enrollment, 
+                        classDates,
+                        receipts: receipts.value,
+                        notAllowChangingClass: true
+                    })}
                 </div>
             </div>
         )

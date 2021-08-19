@@ -4,23 +4,28 @@ import {DataTable} from "../../../common/data-table/data-table";
 import "./receipts.scss";
 import {AddReceiptModal} from "./receipt-modal/add-receipt-modal";
 import {EditReceiptModal} from "./receipt-modal/edit-receipt-modal";
-import {replaceFind} from "../../../../../../../common/utils/collections";
+import {replaceFind, sort} from "../../../../../../../common/utils/collections";
+import {PrintReceiptService} from "./print-receipt-service";
+import {formatNumberBig, formatTimeStampShort} from "../../../../../../../common/formats/formats";
 
-export const Receipts = ({enrollment}) => cs(
+export const Receipts = ({enrollment, receipts}) => cs(
     consumeContext("apis"),
-    ["receipts", ({apis}, next) => Load2({
-        fetch: () => apis.enrollment.getReceipts(enrollment.value.id),
-        next,
-    })],
-    ["addReceiptModal", ({receipts}, next) => AddReceiptModal({
+    consumeContext("resolve"),
+    ["addReceiptModal", ({}, next) => AddReceiptModal({
         onDone: (newReceipt) => receipts.onChange([...(receipts.value || []), newReceipt]),
         next,
     })],
-    ["editReceiptModal", ({receipts}, next) => EditReceiptModal({
+    ["editReceiptModal", ({}, next) => EditReceiptModal({
         onDone: (update) => receipts.onChange(replaceFind(receipts.value, update, (r) => r.id === update.id)),
+        onDelete: (id) => receipts.onChange(receipts.value.filter((r) => r.id !== id)),
         next,
     })],
-    ({receipts, addReceiptModal, editReceiptModal}) => {
+    ["printReceiptService", ({resolve}, next) => PrintReceiptService({
+        class1: resolve.getClass(enrollment.value.class_id),
+        student: resolve.getStudent(enrollment.value.student_id),
+        next
+    })],
+    ({addReceiptModal, editReceiptModal, printReceiptService}) => {
         return (
             <div className="receipts-4gt">
                 <div className="controls">
@@ -32,31 +37,36 @@ export const Receipts = ({enrollment}) => cs(
 
                 <div className="list">
                     {DataTable({
-                        list: receipts.value,
+                        list: sort(receipts.value, (r) => r.time),
                         columns: [
-                            {
-                                label: "Number",
-                                format: (r) => r.number,
-                            },
+                            // {
+                            //     label: "Number",
+                            //     format: (r) => r.number,
+                            // },
                             {
                                 label: "Time",
-                                format: (r) => r.time,
+                                format: (r) => formatTimeStampShort(r.time),
                             },
                             {
                                 label: "Discount",
-                                format: (r) => r.discount?.value,
+                                format: (r) => {
+                                    if (!r.discount || !r.discount.type) {
+                                        return;
+                                    }
+                                    return r.discount.value + (r.discount.type === "percent" ? "%" : "");
+                                },
                             },
                             {
                                 label: "Amount",
-                                format: (r) => r.amount,
+                                format: (r) => formatNumberBig(r.amount),
                             },
                             {
                                 format: (r) => (<>
                                     <button
-                                        onClick={() => editReceiptModal.show(r)}
+                                        onClick={() => editReceiptModal.show({receipt: r, enrollment: enrollment.value})}
                                     >Edit</button>
                                     <button
-                                        onClick={() => {}}
+                                        onClick={() => printReceiptService.print(r)}
                                     >Print</button>
                                 </>)
                             }

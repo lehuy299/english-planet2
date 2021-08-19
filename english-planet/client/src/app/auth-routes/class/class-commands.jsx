@@ -12,22 +12,37 @@ export const ClassCommands = ({next}) => cs(
         onDeactivate: (class0) => resolve.updateClasses(resolve.classes.filter((c) => c.id !== class0.id)),
         next,
     })],
-    ({editClassModal, routing}) => PopupMenu({
-        getCommands: (class0) => ([
-            {
-                label: "Information",
-                onClick: () => editClassModal.show(class0),
-            },
-            {
-                label: "Enrollments",
-                onClick: () => {
-                    routing.goto(
-                        "/enrollment",
-                        {query: {classId: class0.id}}
-                    )
-                },
-            },
-        ]),
-        next,
+    // ({editClassModal, routing}) => PopupMenu({
+    //     getCommands: (class0) => ([
+    //         {
+    //             label: "Information",
+    //             onClick: () => editClassModal.show(class0),
+    //         },
+    //         {
+    //             label: "Enrollments",
+    //             onClick: () => {
+    //                 routing.goto(
+    //                     "/enrollment",
+    //                     {query: {classId: class0.id}}
+    //                 )
+    //             },
+    //         },
+    //     ]),
+    //     next,
+    // }),
+    ({editClassModal, routing}) => next({
+        render: (class0) => (
+            <div className="class-commands table-row-commands">
+                <button
+                    onClick={() => editClassModal.show(class0)}
+                >Edit</button>
+                <button
+                    onClick={() => routing.goto("/enrollment", {query: {classId: class0.id}})}
+                >Enroll</button>
+                <button
+                    onClick={() => routing.goto("/attendance", {query: {classId: class0.id}})}
+                >Attendance</button>
+            </div>
+        )
     })
 );

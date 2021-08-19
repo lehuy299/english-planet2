@@ -1,22 +1,37 @@
+@import "../../../common/styles/buttons.scss";
 
 .enrollment-list-54g {
   display: flex;
+  position: relative;
 
-    & > .left-menu {
-      flex: 0 0 200px;
+  & > .controls {
+    position: absolute;
+    top: -20px;
+    right: 10px;
 
-      & > .enrollment {
-        &.selected {
-          border: 1px solid red;
-        }
-        &.disabled {
-          border: 1px solid black;
-          pointer-events: none;
-        }
+    & > .primary {
+      @include button-primary;
+    }
+  }
+
+  & > .left-menu {
+    flex: 0 0 200px;
+    padding: 0 10px 10px 10px;
+
+    & > .enrollment {
+      padding: 5px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 5px;
+
+      &.selected, &:hover {
+        color: white;
+        background: #248AFD;
       }
     }
+  }
 
-    & > .main-panel {
-      flex: 1 1 auto;
-    }
+  & > .main-panel {
+    flex: 1 1 auto;
+  }
 }

@@ -11,6 +11,7 @@ const hasClassDate = (class1, date) => {
         && ge(date, class1.date_start)
         && dows.includes(getDow(date));
 };
+exports.hasClassDate = hasClassDate;
 
 const generateClassDatesForADate = ({date, classes, isAuto}) => {
     const getEachClass = (class1) => {
@@ -19,6 +20,7 @@ const generateClassDatesForADate = ({date, classes, isAuto}) => {
                 // id: JSON.stringify(date) + class1.id + Date.now(),
                 class_id: class1.id,
                 room: class1.room,
+                teacher_id: class1.teacher_id,
                 date,
                 time: class1.time || 7,
                 auto_generated: isAuto,

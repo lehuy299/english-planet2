@@ -10,6 +10,11 @@ module.exports = [
         controller: enrollmentControllers.getEnrollment,
     }, 
     {
+        method: "DELETE",
+        path: "/enrollment/:id",
+        controller: enrollmentControllers.deleteEnrollment,
+    }, 
+    {
         method: "PUT",
         path: "/enrollment",
         controller: enrollmentControllers.upsertEnrollment,

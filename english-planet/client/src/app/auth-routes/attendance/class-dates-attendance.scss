@@ -1,0 +1,30 @@
+@import "../../common/styles/scrollbars.scss";
+
+.class-dates-attendance-4tg {
+  height: 100%;
+  display: flex;
+
+    & > .left-menu {
+      flex: 0 0 200px;
+      padding: 0 10px 10px 10px;
+      height: 100%;
+      overflow: auto;
+      @include scrollbar-default;
+
+      & > .class-date {
+        padding: 5px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 5px;
+
+        &.selected, &:hover {
+          color: white;
+          background: #248AFD;
+        }
+      }
+    }
+
+    & > .main-panel {
+      flex: 1 1 auto;
+    }
+}

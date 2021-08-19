@@ -40,8 +40,8 @@ export const StudentList = ({students, searchConditions}) => cs(
                             format: (v) => v.address,
                         },
                         {
-                            format: (v) => studentCommands.render({params: v}),
-                            shy: true,
+                            format: (v) => studentCommands.render(v),
+                            //shy: true,
                         }
                     ],
                 }} />

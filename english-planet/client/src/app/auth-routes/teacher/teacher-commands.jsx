@@ -12,13 +12,13 @@ export const TeacherCommands = ({next}) => cs(
         onDeactivate: (teacher) => resolve.updateTeachers(resolve.teachers.filter((t) => t.id !== teacher.id)),
         next,
     })],
-    ({editTeacherModal, }) => PopupMenu({
-        getCommands: (teacher) => ([
-            {
-                label: "Information",
-                onClick: () => editTeacherModal.show(teacher),
-            },
-        ]),
-        next,
+    ({editTeacherModal}) => next({
+        render: (teacher) => (
+            <div className="teacher-commands table-row-commands">
+                <button
+                    onClick={() => editTeacherModal.show(teacher)}
+                >Edit</button>
+            </div>
+        )
     })
 );

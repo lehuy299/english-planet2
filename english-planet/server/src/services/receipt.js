@@ -4,7 +4,7 @@ module.exports = [
     {
         upsertReceipt: async ({params, body} = {}) => {
             if (!body.id) {
-                return await Receipt.create(body);
+                return await Receipt.create({...body, time: Date.now()});
             } else {
                 return await Receipt.update(body);
             }

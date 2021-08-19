@@ -7,6 +7,11 @@ module.exports = [
         },
     },
     {
+        getClassDatesOfClass: async ({params, body} = {}) => {
+            return await ClassDate.find({class_id: params.classId});
+        },
+    },
+    {
         createClassDates: async ({params, body} = {}) => {
             return await ClassDate.batchInsert(body);
         },
@@ -14,6 +19,11 @@ module.exports = [
     {
         deleteClassDate: async ({params, body} = {}) => {
             return await ClassDate.destroy(params.id);
+        },
+    },
+    {
+        deleteClassDatesOfClass: async ({params, body} = {}) => {
+            return await ClassDate.deleteClassDatesOfClass(params.classId);
         },
     },
     {

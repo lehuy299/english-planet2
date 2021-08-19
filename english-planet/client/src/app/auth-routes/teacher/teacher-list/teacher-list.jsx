@@ -35,8 +35,8 @@ export const TeacherList = ({teachers, searchConditions}) => cs(
                             format: (v) => v.address,
                         },
                         {
-                            format: (v) => teacherCommands.render({params: v}),
-                            shy: true,
+                            format: (v) => teacherCommands.render(v),
+                            //shy: true,
                         }
                     ],
                 }} />
@@ -46,8 +46,7 @@ export const TeacherList = ({teachers, searchConditions}) => cs(
 );
 
 const applySearchConditions = (list, conditions) => {
-    console.log(123,list);
-    const satisfiedString = (item, attr) => !conditions[attr] || item[attr].toLowerCase().includes(conditions[attr]?.toLowerCase());
+    const satisfiedString = (item, attr) => !conditions[attr] || (item[attr]?item[attr]:"").toLowerCase().includes(conditions[attr]?.toLowerCase());
     
     const satisfiedDate = (item, attr) => {
         const isSatisfied = (prop) => !conditions[attr]?.[prop] || item[attr][prop] === conditions[attr][prop];

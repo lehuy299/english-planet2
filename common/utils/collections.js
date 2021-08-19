@@ -782,6 +782,25 @@ const setEqual = (col1, col2) => {
 };
 exports.setEqual = setEqual;
 
+const isSubset = (col1, col2) => {
+    if (isEmpty(col1)) {
+        return true;
+    }
+
+    if (isNotEmpty(col1) && isEmpty(col2)) {
+        return false;
+    }
+
+    for (const x of col1) {
+        if (col2.indexOf(x) === -1) {
+            return false;
+        }
+    }
+
+    return true;
+};
+exports.isSubset = isSubset;
+
 const isAllNull = (col) => {
     if (col === null) {
         return null;

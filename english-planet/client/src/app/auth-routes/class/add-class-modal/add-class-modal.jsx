@@ -5,6 +5,8 @@ import {ModalService} from "../../../common/modal/modal-service";
 import { rClassForm } from "../edit-class-modal/edit-class-modal";
 import {CheckboxLine} from "../../../common/checkbox-line/checkbox-line";
 import {generateClassDatesForDates} from "../../timetable/class-date-generator";
+import {spc} from "../../../../../../../common/react/state-path-change";
+import {DropdownSelectSearch} from "../../../common/dropdown-select/dropdown-select-search";
 
 export const AddClassModal = ({onDone, next: rootNext}) => cs(
     ["modal", ({}, next) => ModalService({
@@ -21,10 +23,11 @@ export const AddClassModal = ({onDone, next: rootNext}) => cs(
     ["autoGen", (_, next) => State({next})],
     ["saving", (_, next) => State({next})],
     consumeContext("apis"),
-    ({modal, class0, apis, autoGen, saving}) => (
+    consumeContext("resolve"),
+    ({modal, class0, apis, autoGen, saving, resolve}) => (
         <div className="add-class-modal-2rg">
             <div className="modal-body">
-                {rClassForm({class0})}
+                {rClassForm({class0, teachers: resolve.teachers})}
                 {CheckboxLine({
                     state: autoGen,
                     label: "Auto-generate class dates",

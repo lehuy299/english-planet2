@@ -1,0 +1,26 @@
+@import "../../../common/styles/buttons.scss";
+
+.enrollment-info-8g3 {
+  padding: 10px;
+
+  & > .controls {
+    text-align: right;
+
+    & > .primary {
+      @include button-primary;
+      @include button-medium;
+    }
+    & > .default {
+      @include button-default;
+      @include button-medium;
+    }
+    & > .danger {
+      @include button-danger;
+      @include button-medium;
+    }
+
+    & > button {
+      margin-left: 10px;
+    }
+  }
+}

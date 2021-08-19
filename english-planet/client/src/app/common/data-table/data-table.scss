@@ -1,4 +1,5 @@
 @import "../../common/styles/fonts";
+@import "../../common/styles/buttons";
 
 .data-table-f24 {
   width: 100%;
@@ -63,7 +64,7 @@
       background: #fff;
 
       & > td.shy {
-        opacity: 0;
+        opacity: 0.5;
       }
 
       &:hover {
@@ -81,6 +82,14 @@
 
         &.align-center {
           text-align: center;
+        }
+      }
+
+      & > td > .table-row-commands {
+        & > button {
+          @include button-default;
+          @include button-small;
+          margin-left: 5px;
         }
       }
     }

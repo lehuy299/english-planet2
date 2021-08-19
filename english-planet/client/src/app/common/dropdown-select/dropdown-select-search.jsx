@@ -33,7 +33,9 @@ export const DropdownSelectSearch = ({label, searchPlaceholder, list, valueToLab
         const renderExpand = ({close, width}) => (
             <>
                 <div className="search">
-                    <input {...bindInput(search)}/>
+                    <input {...{
+                        ...bindInput(search),
+                    }}/>
                 </div>
                 <div className="list" style={{minWidth: width}}>
                     {list?.map((l, i) => {
@@ -44,6 +46,7 @@ export const DropdownSelectSearch = ({label, searchPlaceholder, list, valueToLab
                                     className={cx("item", {selected: chosenIndex === i, unavailable: isUnavailable(l)})}
                                     onClick={() => {
                                         onChange(l);
+                                        search.onChange(null);
                                         close();
                                     }}
                                 >
@@ -66,7 +69,8 @@ export const DropdownSelectSearch = ({label, searchPlaceholder, list, valueToLab
                     renderToggle,
                     minExpandHeight: 300,
                     renderExpand,
-                    forcedExpandLeft: true
+                    forcedExpandLeft: true,
+                    onPassiveClose: () => search.onChange(null),
                 })}
 
                 {hasError && errorMessage && (

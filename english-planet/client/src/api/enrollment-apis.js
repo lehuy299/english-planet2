@@ -13,5 +13,8 @@ const createEnrollmentApis = (fetcher) => ({
     getReceipts: (enrollmentId) => {
         return fetcher.get(`/enrollments/${enrollmentId}/receipts`);
     },
+    deleteEnrollment: (id) => {
+        return fetcher.delete(`/enrollment/${id}`);
+    },
 });
 exports.createEnrollmentApis = createEnrollmentApis;

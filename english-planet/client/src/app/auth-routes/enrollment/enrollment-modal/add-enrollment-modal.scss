@@ -4,15 +4,15 @@
   @include modal-theme;
 
   & > .modal-body {
-    & > .form-group {
-      @include form-group;
-    }
+    // & > .form-group {
+    //   @include form-group;
+    // }
 
-    & > .line {
-      @include wrap(10px , 2);
-      & > .form-group {
-        @include form-group;
-      }
-    }
+    // & > .line {
+    //   @include wrap(10px , 2);
+    //   & > .form-group {
+    //     @include form-group;
+    //   }
+    // }
   }
 }

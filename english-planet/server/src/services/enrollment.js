@@ -3,11 +3,6 @@ const {Enrollment} = require("../models/enrollment");
 const {Receipt} = require("../models/receipt");
 
 module.exports = [
-    // {
-    //     deleteEnrollment: async ({params, body} = {}) => {
-
-    //     },
-    // },
     {
         upsertEnrollment: async ({params, body} = {}) => {
             if (!body.id) {
@@ -35,6 +30,12 @@ module.exports = [
     {
         getReceipts: async ({params, query, body} = {}) => {
             return Receipt.find({enrollment_id: params.id});
+        },
+    },
+    {
+        deleteEnrollment: async ({params, body} = {}) => {
+            await Receipt.deleteReceiptsOfEnrollment(params.id);
+            return await Enrollment.destroy(params.id);
         },
     },
     // {

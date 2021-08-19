@@ -7,7 +7,8 @@ import {weekDayLabels} from "../../../../../../../common/formats/formats";
 
 export const ClassList = ({classes, searchConditions}) => cs(
     ["classCommands", ({}, next) => ClassCommands({next})],
-    ({classCommands}) => {
+    consumeContext("resolve"),
+    ({classCommands, resolve}) => {
         const classList = (!searchConditions || Object.keys(searchConditions).length === 0)
             ? classes
             : applySearchConditions(classes, searchConditions);
@@ -26,8 +27,13 @@ export const ClassList = ({classes, searchConditions}) => cs(
                             format: (v) => v.room,
                         },
                         {
+                            label: "Teacher",
+                            format: (v) => resolve.getTeacher(v.teacher_id)?.name,
+                        },
+                        {
                             label: "Fee",
                             format: (v) => v.fee,
+                            sortValue: (v) => v.fee
                         },
                         {
                             label: "Date of week",
@@ -44,8 +50,8 @@ export const ClassList = ({classes, searchConditions}) => cs(
                             sortValue: (v) => v.date_end ? serializeDate(v.date_end) : "",
                         },
                         {
-                            format: (v) => classCommands.render({params: v}),
-                            shy: true,
+                            format: (v) => classCommands.render(v),
+                            // shy: true,
                         }
                     ],
                 }} />
@@ -60,6 +66,20 @@ const formatDaysOfWeek = (v) => {
 
 const applySearchConditions = (list, conditions) => {
     const satisfiedString = (item, attr) => !conditions[attr] || item[attr].toLowerCase().includes(conditions[attr]?.toLowerCase());
+    
+    const satisfiedStringList = (item, attr) => {
+        if (!conditions[attr]) {
+            return true;
+        }
+        const itemValueArr = item[attr].toLowerCase().split(",");
+        const conditionArr = conditions[attr]?.toLowerCase().split(",");
+        for (const x of conditionArr) {
+            if (itemValueArr.includes(x)) {
+                return true;
+            }
+        }
+        return false;
+    };
     
     const satisfiedDate = (item, attr) => {
         const isSatisfied = (prop) => !conditions[attr]?.[prop] || item[attr][prop] === conditions[attr][prop];
@@ -76,5 +96,6 @@ const applySearchConditions = (list, conditions) => {
     return list.filter((item) => (
         satisfiedString(item, "name") 
         && satisfiedString(item, "room")
+        && satisfiedStringList(item, "days_of_week")
     ));
 };

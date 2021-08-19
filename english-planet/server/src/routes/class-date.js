@@ -10,6 +10,11 @@ module.exports = [
         controller: classDateControllers.getClassDate,
     }, 
     {
+        method: "GET",
+        path: "/class-dates/class/:classId",
+        controller: classDateControllers.getClassDatesOfClass,
+    }, 
+    {
         method: "PUT",
         path: "/class-date",
         controller: classDateControllers.upsertClassDate,
@@ -26,7 +31,12 @@ module.exports = [
     },
     {
         method: "DELETE",
-        path: "/class-dates/:id",
+        path: "/class-date/:id",
         controller: classDateControllers.deleteClassDate,
+    },
+    {
+        method: "DELETE",
+        path: "/class-dates/class/:classId",
+        controller: classDateControllers.deleteClassDatesOfClass,
     },
 ];

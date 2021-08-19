@@ -1,0 +1,33 @@
+@import "../../../common/modal/modal-theme.scss";
+
+.performance-report-modal-u3f {
+  @include modal-theme;
+}
+
+.performance-report-3yg {
+  & > .content > .table {
+    & > table {
+      width: 100%;
+      border-collapse: collapse;
+      @include nunito-regular(14px);
+      color: $font-default-light;
+
+      & > thead {
+        & > tr {
+          border-bottom: 1px solid grey;
+        }
+      }
+
+      & > tbody {
+        & > tr {
+          border-bottom: 1px solid grey;
+          background: #fff;
+
+          & > .absent {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

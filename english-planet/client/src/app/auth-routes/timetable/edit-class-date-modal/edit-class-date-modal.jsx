@@ -10,6 +10,7 @@ import {stateToSelect} from "../../../common/dropdown-select/state-to-select";
 import {DatePicker} from "../../../common/date-picker/date-picker";
 import {equalDeep} from "../../../../../../../common/utils/equal-deep";
 import {RoomSelect} from "../../common/room-select/room-select";
+import {bindInput} from "../../../../../../../common/react/bind-input";
 
 export const EditClassDateModal = ({next: rootNext}) => cs(
     ["modal", ({}, next) => ModalService({
@@ -94,15 +95,16 @@ export const rClassDateForm = ({classDate}) => cs(
                 <div className="control-label">
                     Room
                 </div>
-                {(() => {
+                <input {...bindInput(scope(classDate, ["room"]))} />
+                {/* {(() => {
                     const {value, onChange} = scope(classDate, ["room"]);
                     return RoomSelect({
                         value: value || class1?.room,
                         onChange,
                     })
-                })()}
+                })()} */}
             </div>
-            {/* <div className="form-group">
+            <div className="form-group">
                 <div className="control-label">
                     Teacher
                 </div>
@@ -111,7 +113,7 @@ export const rClassDateForm = ({classDate}) => cs(
                     valueToLabel: (t) => t.name,
                     ...stateToSelect(scope(classDate, ["teacher_id"]), ["id"]),
                 })}
-            </div> */}
+            </div>
         </>)
     }
 );

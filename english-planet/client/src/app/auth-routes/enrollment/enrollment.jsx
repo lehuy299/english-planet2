@@ -24,8 +24,9 @@ export const Enrollment = () => cs(
     ["addEnrollmentModal", ({enrollments}, next) => AddEnrollmentModal({
         onDone: (newErm) => {
             if (
-                enrollments.value.map((e) => e.student_id).includes(newErm.student_id)
-                || enrollments.value.map((e) => e.class_id).includes(newErm.class_id)
+                !enrollments.value?.length
+                || !(enrollments.value.map((e) => e.student_id).includes(newErm.student_id)
+                && enrollments.value.map((e) => e.class_id).includes(newErm.class_id))
             ) {
                 enrollments.onChange([...(enrollments.value || []), newErm]);
             }
@@ -55,11 +56,11 @@ export const Enrollment = () => cs(
                             <div className="form-group">
                                 <div className="control-label">Student</div>
                                 {DropdownSelectSearch({
-                                    list: resolve.students,
-                                    isSelected: (c) => current.value?.studentId === c.id,
-                                    onChange: (c) => spc(current, ["studentId"], () => c.id),
-                                    valueToLabel: (c) => c.name,
-                                    valueToSearch: (c) => c.name,
+                                    list: [...resolve.students, null],
+                                    isSelected: (c) => (c?.id && current.value?.studentId === c.id) || !c?.id,
+                                    onChange: (c) => spc(current, ["studentId"], () => c?.id),
+                                    valueToLabel: (c) => c?.name || "All",
+                                    valueToSearch: (c) => c?.name || "All",
                                 })}
                             </div>
                             <div className="form-group">
@@ -85,7 +86,7 @@ export const Enrollment = () => cs(
                             EnrollmentList({
                                 enrollments,
                                 current: current.value,
-                                onRemove: () => {},
+                                onDelete: (id) => enrollments.onChange(enrollments.value.filter((e) => e.id !== id)),
                                 showByStudent: !current.value?.studentId,
                             }),
                     className: "enrollment-panel",

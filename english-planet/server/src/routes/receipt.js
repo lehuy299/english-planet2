@@ -9,4 +9,9 @@ module.exports = [
         path: "/receipt",
         controller: receiptControllers.upsertReceipt,
     },
+    {
+        method: "DELETE",
+        path: "/receipt/:id",
+        controller: receiptControllers.deleteReceipt,
+    },
 ];

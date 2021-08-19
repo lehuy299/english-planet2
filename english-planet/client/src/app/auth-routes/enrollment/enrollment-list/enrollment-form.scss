@@ -1,0 +1,15 @@
+@import "../../../common/styles/form.scss";
+@import "../../../common/styles/wrap.scss";
+
+.enrollment-form-g42 {
+  & > .form-group {
+      @include form-group;
+    }
+
+    & > .line {
+      @include wrap(10px , 2);
+      & > .form-group {
+        @include form-group;
+      }
+    }
+}

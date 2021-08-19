@@ -3,23 +3,15 @@ import {cs, State} from "cs-react";
 import "./search-class.scss";
 import {bindInput} from "../../../../../../../common/react/bind-input";
 import {scope} from "../../../../../../../common/react/scope";
-import {createArray} from "../../../../../../../common/utils/collections";
-import {spc} from "../../../../../../../common/react/state-path-change";
-import {getPath} from "../../../../../../../common/utils/arr-path";
-import {DropdownSelect} from "../../../common/dropdown-select/dropdown-select";
 import {consumeContext} from "cs-react";
 import {DropdownSelectChips} from "../../../common/dropdown-select-chips/dropdown-select-chips";
+import {weekDayLabels} from "../../../../../../../common/formats/formats";
+import {stringListState} from "../../../common/data-logic/string-list-state";
 
 export const SearchClass = ({onSearch}) => cs(
     consumeContext("resolve"),
     ["state", (_, next) => State({next})],
     ({state, resolve}) => {
-        const rDateSelect = ({list, path}) => DropdownSelect({
-            list: ["All", ...list],
-            isSelected: (v) => v === getPath(state.value, path),
-            onChange: (v) => spc(state, path, () => v === "All" ? null : v),
-        });
-
         return (
             <div className="search-class-56s">
                 <div className="flex-group">
@@ -34,6 +26,25 @@ export const SearchClass = ({onSearch}) => cs(
                             Room
                         </div>
                         <input {...bindInput(scope(state, ["room"]))} />
+                    </div>
+                    <div className="form-group">
+                        <div className="control-label">
+                            Days of week
+                        </div>
+                        {DropdownSelectChips({
+                            list: weekDayLabels.map((d, i) => ({label: d, value: i.toString()})),
+                            valueToLabel: (d) => d.label,
+                            ...(() => {
+                                const {value, onChange} = stringListState(scope(state, ["days_of_week"]));
+                                const isSelected = (d) => value?.includes(d.value);
+                                return {
+                                    isSelected,
+                                    onSelect: (d) => onChange(
+                                        isSelected(d) ? value.filter((d1) => d.value !== d1) : [...(value || []), d.value]
+                                    ),
+                                }
+                            })()
+                        })}
                     </div>
                     {/* <div className="form-group">
                         <div className="control-label">
@@ -61,7 +72,7 @@ export const SearchClass = ({onSearch}) => cs(
                             list: createArray(20).map((_, i) => i + 2002),
                             path: ["date_of_birth", "year"],
                         })}
-                    </div> */}
+                    </div>
                     <div className="form-group">
                         <div className="control-label">
                             Class
@@ -82,8 +93,8 @@ export const SearchClass = ({onSearch}) => cs(
                                 }
                             })()
                             
-                        })}
-                    </div>
+                        })} 
+                    </div>*/}
                     <div className="search-btn">
                         <button 
                             className="primary"

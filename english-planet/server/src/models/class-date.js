@@ -28,9 +28,16 @@ const initModel = (knex) => {
             .then(recordsDeserialize);
     };
 
+    const deleteClassDatesOfClass = async (classId) => {
+        return await knex.del()
+            .from(tableName)
+            .where({class_id: classId})
+    };
+
     return {
         ...actions,
         getClassDatesInDateRange,
+        deleteClassDatesOfClass,
     }
 }
 exports.ClassDate = createModel(initModel);

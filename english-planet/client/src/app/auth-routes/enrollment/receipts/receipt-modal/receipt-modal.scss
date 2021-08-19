@@ -1,9 +1,15 @@
 @import "../../../../common/modal/modal-theme.scss";
 
-.receipt-modal-2rg {
+.add-receipt-modal-2rg {
   @include modal-theme;
+}
 
-  & > .modal-body {
+.edit-receipt-modal-78j {
+  @include modal-theme-2;
+}
+
+.receipt-form-4gt {
+  & > .form-area {
     & > .form-group {
       @include form-group;
     }

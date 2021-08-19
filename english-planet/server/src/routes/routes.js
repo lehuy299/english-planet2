@@ -5,7 +5,7 @@ const allRoutes = [
     ...require("./class"),
     ...require("./class-date"),
     ...require("./enrollment"),
-    // ...require("./receipt"),
+    ...require("./receipt"),
     ...require("./teacher"),
 ];
 

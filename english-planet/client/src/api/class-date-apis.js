@@ -9,6 +9,9 @@ const createClassDateApis = (fetcher) => ({
         const to = serializeDate(dateRange.to);
         return fetcher.get(`/class-dates?from=${from}&to=${to}`);
     },
+    getClassDatesOfClass: (classId) => {
+        return fetcher.get(`/class-dates/class/${classId}`);
+    },
     createClassDates: (classDates) => {
         return fetcher.post(`/class-dates`, classDates);
     },
@@ -16,7 +19,10 @@ const createClassDateApis = (fetcher) => ({
         return fetcher.put(`/class-date`, classDate);
     },
     deleteClassDate: (id) => {
-        return fetcher.delete(`/class-dates/${id}`);
+        return fetcher.delete(`/class-date/${id}`);
+    },
+    deleteClassDatesOfClass: (classId) => {
+        return fetcher.delete(`/class-dates/class/${classId}`);
     },
 });
 exports.createClassDateApis = createClassDateApis;

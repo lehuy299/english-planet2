@@ -12,6 +12,8 @@ import {cs, provideContext} from "cs-react";
 import {Enrollment} from "./enrollment/enrollment";
 import {routerHistory} from "../common/router-history";
 import {loadRouting} from "./load-routing";
+import {PrintServiceRegistry} from "../common/print-service/print-service-registry";
+import {Attendance} from "./attendance/attendance";
 
 const authRoutes = [
     {name: "Main dashboard", path: "/dashboard",  component: Dashboard},
@@ -19,6 +21,7 @@ const authRoutes = [
     {name: "Enrollment",     path: "/enrollment", component: Enrollment},
     {name: "Teacher",        path: "/teacher",    component: Teacher},
     {name: "Class",          path: "/class",      component: Class},
+    {name: "Attendance",     path: "/attendance", component: Attendance},
     {name: "Timetable",      path: "/timetable",  component: Timetable},
     {name: "Route 1",        path: "/route-1",    component: Route1},
 ];
@@ -30,6 +33,7 @@ export const AuthRoutes = () => cs(
         next,
     }),
     (_, next) => loadResolve({next}),
+    ({}, next) => PrintServiceRegistry({next}),
     ({}) => {
         const defaultRoute = "/dashboard";
         return (

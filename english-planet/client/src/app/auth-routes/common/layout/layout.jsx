@@ -65,6 +65,11 @@ const navLinks = [
         to: "/class",
     },
     {
+        name: "Attendance",
+        active: "attendance",
+        to: "/attendance",
+    },
+    {
         name: "Timetable",
         active: "timetable",
         to: "/timetable",

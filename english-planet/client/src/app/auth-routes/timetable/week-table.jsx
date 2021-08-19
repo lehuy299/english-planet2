@@ -4,6 +4,8 @@ import {getDatesInRangeIncluded, sameDate} from '../../../../../../common/utils/
 import {formatWeekDate} from '../../../../../../common/formats/formats';
 import "./week-table.scss";
 import {SelectWeekRange} from '../../common/date-picker/select-week-range';
+import {sort} from '../../../../../../common/utils/collections';
+import {chain} from '../../../../../../common/utils/fs';
 
 export const WeekTable = ({dateRange, cards, onDateContextMenu}) => cs(
     ({}) => {
@@ -19,8 +21,8 @@ export const WeekTable = ({dateRange, cards, onDateContextMenu}) => cs(
                         return (
                             <div
                                 className="item-card" key={card.key}
-                                onClick={card.onClick}
-                                onContextMenu={card.onContextMenu}
+                                // onClick={card.onClick}
+                                onClick={card.onContextMenu}
                             >
                                 {card.render()}
                             </div>
@@ -49,7 +51,14 @@ export const WeekTable = ({dateRange, cards, onDateContextMenu}) => cs(
                     <div className="main">
                         {dates.map((date, i) => cs(
                             keyed(i),
-                            ({}) => rDate(cards?.filter((card) => sameDate(card.date, date)), date)
+                            ({}) => rDate(
+                                chain(
+                                    cards,
+                                    (_) => _?.filter((card) => sameDate(card.date, date)),
+                                    (_) => sort(_, (card) => card.time),
+                                ),
+                                date
+                            )
                         ))}
                     </div>
                 </div>
