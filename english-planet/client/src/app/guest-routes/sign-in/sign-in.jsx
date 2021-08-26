@@ -14,7 +14,7 @@ export const SignIn = (props) => cs(
                 <button
                     onClick={() => {
                         // await apis.user.login()
-                        auth.login({name: "luan", token: "5ytwrg"});
+                        auth.login({name: "huy1", token: "5ytwrg"});
                         // props.history.push("/dashboard");
                     }}
                 >Login</button>
