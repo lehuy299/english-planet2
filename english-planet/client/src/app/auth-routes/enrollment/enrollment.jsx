@@ -7,6 +7,7 @@ import {DropdownSelectSearch} from '../../common/dropdown-select/dropdown-select
 import {spc} from '../../../../../../common/react/state-path-change';
 import {EnrollmentList} from './enrollment-list/enrollment-list';
 import {AddEnrollmentModal} from './enrollment-modal/add-enrollment-modal';
+import {replaceFind_f} from '../../../../../../common/utils/collections';
 
 export const Enrollment = () => cs(
     consumeContext("routing"),
@@ -21,7 +22,7 @@ export const Enrollment = () => cs(
         fetch: () => (current.value?.studentId || current.value?.classId) && apis.enrollment.getEnrollments(current.value),
         next,
     })],
-    ["addEnrollmentModal", ({enrollments}, next) => AddEnrollmentModal({
+    ["addEnrollmentModal", ({enrollments, resolve}, next) => AddEnrollmentModal({
         onDone: (newErm) => {
             if (
                 !enrollments.value?.length
@@ -30,6 +31,11 @@ export const Enrollment = () => cs(
             ) {
                 enrollments.onChange([...(enrollments.value || []), newErm]);
             }
+            resolve.updateStudents(replaceFind_f(
+                resolve.students, 
+                (s) => ({...s, class_ids: [...(s.class_ids || []), newErm.class_id]}), 
+                (s) => s.id === newErm.student_id
+            ));
         },
         next,
     })],
@@ -86,7 +92,14 @@ export const Enrollment = () => cs(
                             EnrollmentList({
                                 enrollments,
                                 current: current.value,
-                                onDelete: (id) => enrollments.onChange(enrollments.value.filter((e) => e.id !== id)),
+                                onDelete: (deleted) => {
+                                    enrollments.onChange(enrollments.value.filter((e) => e.id !== deleted.id));
+                                    resolve.updateStudents(replaceFind_f(
+                                        resolve.students,
+                                        (s) => ({...s, class_ids: s.class_ids.filter((cid) => cid !== deleted.class_id)}),
+                                        (s) => s.id === deleted.student_id
+                                    ));
+                                },
                                 showByStudent: !current.value?.studentId,
                             }),
                     className: "enrollment-panel",

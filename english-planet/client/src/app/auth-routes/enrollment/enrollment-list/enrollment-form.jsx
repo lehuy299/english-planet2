@@ -9,6 +9,7 @@ import {sum} from "../../../../../../../common/utils/collections";
 import {formatNumberBig} from "../../../../../../../common/formats/formats";
 import {spc} from "../../../../../../../common/react/state-path-change";
 import {bindInputNumber} from "../../../../../../../common/react/bind-input-number";
+import { DaysOfWeekSelect2 } from "../../../common/days-of-week-select";
 
 export const EnrollmentForm = ({enrollment, classDates, receipts, notAllowChangingClass}) => cs(
     consumeContext("resolve"),
@@ -57,7 +58,20 @@ export const EnrollmentForm = ({enrollment, classDates, receipts, notAllowChangi
                         })()}
                     </div>
                 </div>
+                <div className="form-group">
+                    <div className="control-label">Days of week</div>
+                    {(() => {
+                        const {value, onChange} = scope(enrollment, ["days_of_week"]);
 
+                        return DaysOfWeekSelect2(
+                            {
+                                value: value || class1?.days_of_week,
+                                onChange,
+                            },
+                            class1?.days_of_week
+                            )
+                    })()}
+                </div>
                 <div className="form-group">
                     <div className="control-label">Fee per class date</div>
                     {(() => {

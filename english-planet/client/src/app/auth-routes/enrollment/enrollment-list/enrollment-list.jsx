@@ -48,9 +48,9 @@ export const EnrollmentList = ({enrollments, onDelete, showByStudent}) => cs(
                                 value: enrollments.value.find((e) => e.id === selected.value),
                                 onChange: (update) => enrollments.onChange(replaceFind(enrollments.value, update, (e) => e.id === update.id)),
                             },
-                            onDelete: (id) => {
-                                selected.onChange(enrollments.value.filter((e) => e.id !== id)[0]?.id);
-                                onDelete(id);
+                            onDelete: (deleted) => {
+                                selected.onChange(enrollments.value.filter((e) => e.id !== deleted.id)[0]?.id);
+                                onDelete(deleted);
                             },
                         })}
                     </div>

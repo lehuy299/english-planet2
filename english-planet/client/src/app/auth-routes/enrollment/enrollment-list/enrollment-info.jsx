@@ -17,9 +17,10 @@ export const EnrollmentInfo = ({enrollment, oriErm, receipts, onDelete}) => cs(
     ["detailsModal", (_, next) => EnrollmentDetailsModal({next})],
     ["performanceReportModal", (_, next) => PerformanceReportModal({next})],
     ({resolve, apis, detailsModal, performanceReportModal, allClassDates}) => {
+
         const classDates = allClassDates?.filter((cd) =>
-            (!enrollment.value.date_start || ge(cd.date, enrollment.value.date_start)) && (!enrollment.value.date_end || le(cd.date, enrollment.value.date_end))
-        );
+            (!enrollment.value.date_start || ge(cd.date, enrollment.value.date_start)) && (!enrollment.value.date_end || le(cd.date, enrollment.value.date_end)) && (!enrollment.value.days_of_week || enrollment.value.days_of_week.includes(cd.day_of_week?.toString()))); 
+            
         return (
             <div className="enrollment-info-8g3">
                 <div className="controls">
@@ -48,7 +49,7 @@ export const EnrollmentInfo = ({enrollment, oriErm, receipts, onDelete}) => cs(
                                 return;
                             }
                             await apis.enrollment.deleteEnrollment(enrollment.value.id);
-                            onDelete(enrollment.value.id);
+                            onDelete(enrollment.value);
                         }}
                     >Delete</button>
                 </div>

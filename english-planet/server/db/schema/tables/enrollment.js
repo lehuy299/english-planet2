@@ -7,6 +7,7 @@ module.exports = {
         fee: "decimal(10,2)",
         date_start: "date",
         date_end: "date",
+        days_of_week: "varchar(15)",
         // inactive: "boolean",
     },
 };

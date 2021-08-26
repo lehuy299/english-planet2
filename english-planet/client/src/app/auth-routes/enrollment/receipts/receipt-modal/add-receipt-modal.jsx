@@ -93,7 +93,7 @@ export const receiptForm = ({receipt, enrollment}) => cs(
                 {(() => {
                     const subtotal = receipt.value.amount ?? 0;
                     const discountAmount = !receipt.value.discount?.type ? 0 : (
-                        receipt.value.discount.type === "percent" ? (receipt.value.discount.value ?? 0) * subtotal : (receipt.value.discount.value ?? 0)
+                        receipt.value.discount.type === "percent" ? (receipt.value.discount.value ?? 0) * (subtotal/100) : (receipt.value.discount.value ?? 0)
                     );
                     const total = subtotal - discountAmount;
 

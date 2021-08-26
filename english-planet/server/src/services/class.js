@@ -1,4 +1,6 @@
 const {Class} = require("../models/class");
+const {Enrollment} = require("../models/enrollment");
+const {ClassDate} = require("../models/class-date");
 const {omit} = require("../../../../common/utils/objects");
 
 module.exports = [
@@ -42,6 +44,10 @@ module.exports = [
             if (!body.id) {
                 return await Class.create(body);
             } else {
+                if (body.inactive) {
+                    await Enrollment.deleteEnrollmentsOfClass(body.id);
+                    await ClassDate.deleteClassDatesOfClass(body.id);
+                }
                 return await Class.update(body);
             }
         },

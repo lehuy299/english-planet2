@@ -11,7 +11,7 @@ export const EnrollmentPanel = ({enrollment: oriErm, onDelete}) => cs(
         next,
     })],
     ["receipts", ({apis}, next) => Load2({
-        fetch: () => apis.enrollment.getReceipts(oriErm.value.id),
+        fetch: () => apis.enrollment.getReceipts(oriErm.value?.id),
         next,
     })],
     ({enrollment, receipts, apis}) => {

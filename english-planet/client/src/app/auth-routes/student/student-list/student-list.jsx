@@ -11,6 +11,8 @@ export const StudentList = ({students, searchConditions}) => cs(
         const studentList = (!searchConditions || Object.keys(searchConditions).length === 0) 
             ? students
             : applySearchConditions(students, searchConditions);
+            
+        const allClasses = resolve.classes;
 
         return (
             <div className="student-list-3hs">
@@ -22,9 +24,13 @@ export const StudentList = ({students, searchConditions}) => cs(
                             format: (v) => v.name,
                             sortValue: (v) => v.name.toLowerCase(),
                         },
+                        // {
+                        //     label: "Classes1",
+                        //     format: (v) => v.class_ids?.map((cId) => resolve.getClass(cId).name).join(", "),
+                        // },
                         {
                             label: "Classes",
-                            format: (v) => v.class_ids?.map((cId) => resolve.getClass(cId).name).join(", "),
+                            format: (v) => allClasses.filter((c) => v.class_ids?.includes(c.id)).map(c => c.name).join(", ")
                         },
                         {
                             label: "Date of birth",

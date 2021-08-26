@@ -17,20 +17,23 @@ export const EnrollmentDetailsModal = ({next: rootNext}) => cs(
         next: rootNext,
     })],
     ["printService", ({}, next) => PrintService({
-        print: ({enrollment, class1, classDates}) => rEnrollmentClassDatesDetails({enrollment, class1, classDates}),
+        print: ({enrollment, class1, classDates, student}) => rEnrollmentClassDatesDetails({enrollment, class1, classDates, student}),
         next,
     })],
     consumeContext("resolve"),
     consumeContext("apis"),
     ({modal, resolve, printService}) => {
         const class1 = resolve.getClass(modal.enrollment.class_id);
+        const student = resolve.getStudent(modal.enrollment.student_id);
+
         return (
             <div className="add-enrollment-modal-2rg">
                 <div className="modal-body">
                     {rEnrollmentClassDatesDetails({
                         enrollment: modal.enrollment, 
                         class1, 
-                        classDates: modal.classDates
+                        classDates: modal.classDates,
+                        student
                     })}
                 </div>
                 <div className="footer">
@@ -41,7 +44,8 @@ export const EnrollmentDetailsModal = ({next: rootNext}) => cs(
                             printService.print({
                                 enrollment: modal.enrollment, 
                                 class1, 
-                                classDates: modal.classDates
+                                classDates: modal.classDates,
+                                student
                             })
                         }}
                     >Print</button>
@@ -51,11 +55,17 @@ export const EnrollmentDetailsModal = ({next: rootNext}) => cs(
     }
 );
 
-const rEnrollmentClassDatesDetails = ({enrollment, class1, classDates}) => {
+const rEnrollmentClassDatesDetails = ({enrollment, class1, classDates, student}) => {
     return (
         <div className="enrollment-details-print-4t2">
             <div className="title">
                 Enrollment Details
+            </div>
+            <div className="title">
+                {student.name}
+            </div>
+            <div className="title">
+                {class1.name}
             </div>
             <div className="content">
                 {classDates.map((cd, i) => (
