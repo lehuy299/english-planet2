@@ -1,8 +1,11 @@
 const {Student} = require("../models/student");
 const {Class} = require("../models/class");
 const {Enrollment} = require("../models/enrollment");
-const {flatten1} = require("../../../../common/utils/collections");
+const {Receipt} = require("../models/receipt");
+const {flatten1, sum} = require("../../../../common/utils/collections");
 const {omit} = require("../../../../common/utils/objects");
+const {ClassDate} = require("../models/class-date");
+const {serializeDate, getDow} = require("../../../../common/utils/date-object");
 
 module.exports = [
     {
@@ -63,5 +66,57 @@ module.exports = [
 
             return newEnrollments;
         },
+    },
+    {
+        getStudentsHavingUnfinishedPayment: async () => {
+            const students = await Student.find({inactive: false});
+
+            const getStudentPaymentReport = async (student) => {
+                const enrollments = await Enrollment.getEnrollmentsByStudentIds([student.id]);
+
+                const getEnrollmentPaymentStatus = async (enrollment) => {
+                    const class1 = await Class.findOne({id: enrollment.class_id});
+
+                    const startDate = enrollment.date_start || class1.date_start;
+                    const endDate = enrollment.date_end || class1.date_end;
+
+                    // notice: date_start, date_end, days_of_week
+                    const classDates = await ClassDate.getClassDatesInDateRange({
+                        dateRange: {from: serializeDate(startDate), to: serializeDate(endDate)},
+                        classId: class1.id
+                    }).then((clds) => clds.filter((cld) => !enrollment.days_of_week || enrollment.days_of_week.includes(getDow(cld.date))));
+
+                    const receipts = await Receipt.find({enrollment_id: enrollment.id});
+
+                    const totalFee = (enrollment.fee ?? class1.fee) * classDates.length;
+                    const paidAmount = !receipts?.length ? 0 : sum(receipts.map((r) => r.amount));
+                    const left = totalFee - paidAmount;
+
+                    return {
+                        enrollment_id: enrollment.id,
+                        class_id: class1.id,
+                        status: totalFee === 0 ? "no-fee" : paidAmount === 0 ? "not-paid" : (left <= 0 ? "fully-paid" : "partly-paid"),
+                        left,
+                    }
+                };
+
+                let ret = [];
+                for (const erm of enrollments) {
+                    ret.push(await getEnrollmentPaymentStatus(erm))
+                }
+                return ret;
+            };
+
+            let ret = [];
+            for (const student of students) {
+                const report = await getStudentPaymentReport(student);
+                const unfinisheds = report.filter((r) => !["fully-paid", "no-fee"].includes(r.status));
+                if (unfinisheds.length > 0) {
+                    unfinisheds.forEach((u) => ret.push({student_id: student.id, ...u}));
+                }
+            }
+            return ret;
+        }
     }
 ];
+

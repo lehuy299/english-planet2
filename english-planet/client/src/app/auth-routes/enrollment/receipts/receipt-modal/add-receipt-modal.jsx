@@ -8,6 +8,7 @@ import {RadioLine} from "../../../../common/radio-line/radio-line";
 import {spc} from "../../../../../../../../common/react/state-path-change";
 import {upperCase1} from "../../../../../../../../common/utils/strings";
 import {formatNumberBig} from "../../../../../../../../common/formats/formats";
+import {getFigures} from "../receipt-helpers";
 
 export const AddReceiptModal = ({onDone, next: rootNext}) => cs(
     ["modal", ({}, next) => ModalService({
@@ -91,11 +92,7 @@ export const receiptForm = ({receipt, enrollment}) => cs(
                     </div>
                 </div>
                 {(() => {
-                    const subtotal = receipt.value.amount ?? 0;
-                    const discountAmount = !receipt.value.discount?.type ? 0 : (
-                        receipt.value.discount.type === "percent" ? (receipt.value.discount.value ?? 0) * (subtotal/100) : (receipt.value.discount.value ?? 0)
-                    );
-                    const total = subtotal - discountAmount;
+                    const {subtotal, discountAmount, total} = getFigures(receipt.value);
 
                     return (
                         <div className="total-area">

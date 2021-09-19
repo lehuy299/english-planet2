@@ -4,9 +4,13 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "init-db": "cd ./db/db-services && node run-init-db.js",
-    "seed": "knex seed:run",
-    "start-server-dev": "cd ./src && node start-server-dev.js"
+    "install-all": "node install-all.js",
+    "init-db-dev": "cd ./db/db-services && node run-init-db.js dev",
+    "init-db-staging": "cd ./db/db-services && node run-init-db.js staging",
+    "seed-dev": "knex seed:run --env dev",
+    "seed-staging": "knex seed:run --env staging",
+    "start-server-dev": "cd ./src && node start-server-dev.js dev",
+    "start-server-staging": "cd ./src && node start-server-staging.js staging"
   },
   "author": "",
   "license": "ISC",

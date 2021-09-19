@@ -91,6 +91,7 @@ export const EditClassModal = ({onDone, onDeactivate, next: rootNext}) => cs(
                                 || class1.value.days_of_week !== modal.class0.days_of_week
                                 || class1.value.time !== modal.class0.time
                                 || class1.value.room !== modal.class0.room
+                                || class1.value.teacher_id !== modal.class0.teacher_id
                             );
 
                             saving.onChange(true);

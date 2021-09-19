@@ -1,3 +1,25 @@
+@import "../common/layout/route-layout.scss";
+@import "../../common/styles/scrollbars.scss";
+
 .dashboard-1j2 {
-    
+  @include route-layout;
+  
+  & > .card {
+    display: inline-block;
+    vertical-align: top;
+    width: 45%;
+    margin-bottom: 20px;
+    margin-right: 20px;
+
+    max-height: 500px;
+    overflow: auto;
+    @include scrollbar-default;
+
+    .data-table {
+      .link {
+        cursor: pointer;
+        color: $blue;
+      }
+    }
+  }
 }

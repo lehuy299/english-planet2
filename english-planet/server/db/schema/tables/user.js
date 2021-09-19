@@ -1,11 +1,11 @@
 module.exports = {
     name: "user",
     fields: {
-        id: "uuid pk",
+        id: "uuid",
         login_name: "*",
         full_name: "*",
         password: "char(128)",
-        role: "", // admin, user
+        role: "*", // admin, user
         // inactive: "boolean",
     },
 };

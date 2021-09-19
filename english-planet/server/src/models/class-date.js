@@ -21,11 +21,13 @@ const initModel = (knex) => {
         deserialize,
     });
 
-    const getClassDatesInDateRange = async (dateRange) => {
-        return await knex.select().from(tableName)
+    const getClassDatesInDateRange = async ({dateRange, classId}) => {
+        const clds = await knex.select().from(tableName)
             .where("date", ">=", dateRange.from)
             .andWhere("date", "<=", dateRange.to)
             .then(recordsDeserialize);
+
+        return !classId ? clds : clds.filter((cld) => cld.class_id === classId);
     };
 
     const deleteClassDatesOfClass = async (classId) => {

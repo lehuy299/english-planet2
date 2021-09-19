@@ -76,7 +76,7 @@ const rEnrollmentClassDatesDetails = ({enrollment, class1, classDates, student})
 
                 {(() => {
                     const numberOfClassDates = classDates.length;
-                    const totalFee = numberOfClassDates * (class1.fee ?? 0);
+                    const totalFee = numberOfClassDates * (enrollment.fee ?? class1.fee ?? 0);
                     return (
                         <div className="fee">
                             <div className="number-of-class-dates">

@@ -1,4 +1,56 @@
+@import "../../common/styles/form.scss";
+@import "../../common/styles/buttons.scss";
+@import "../../common/styles/fonts.scss";
 
 .sign-in-route-1b2 {
-    padding-top: 60px;
+  padding-top: 60px;
+  height: 100%;
+  background: #F5F7FF;
+
+  & > .box {
+    width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    background: white;
+    
+    & > .header {
+      margin-bottom: 30px;
+      text-align: center;
+
+      & > .logo {
+        margin-bottom: 20px
+      }
+      & > .message1 {
+        @include nunito-medium(18px);
+        color: #1f1f1f;
+        margin-bottom: 8px
+      }
+      & > .message2 {
+        @include nunito-medium(15px);
+        color: #1f1f1f;
+      }
+      & > .error {
+        @include nunito-medium(15px);
+        color: #D8000C;
+	      background-color: #FFBABA;
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 4px;
+      }
+    }
+    & > .form-area {
+      
+      
+      & > .form-group {
+        @include form-group;
+      }
+  
+      & > .button {
+        text-align: right;
+        & > .primary {
+          @include button-primary;
+        }
+      }
+    }
+  }
 }

@@ -5,6 +5,7 @@ const tables = [
     require("./enrollment"),
     require("./class_date"),
     require("./receipt"),
+    require("./user"),
 ];
 exports.tables = {
     tables

@@ -11,9 +11,11 @@ const userTableConfig = normalizeTableConfig(
 );
 
 const initModel = (knex) => {
+    const tableName = userTableConfig.name;
+
     const actions = createModelActions({
         knex,
-        tableName: userTableConfig.name,
+        tableName,
         serialize: cSerialize(userTableConfig),
         deserialize: cDeserialize(userTableConfig),
     })
@@ -22,11 +24,9 @@ const initModel = (knex) => {
         return await actions.create({...user, password: await encryptPassword(user.password), created_at: new Date()});
     }
 
-    const verify = async (username, password) => {
-        const user = await knex.select()
-            .from(tableName)
-            .where({username})
-            .timeout(actions.timeout);
+    const verify = async ({login_name, password}) => {
+        
+        const user = await actions.findOne({login_name})
 
         if (user == null) {
             return {success: false, error: "invalid_grant", code: 2364};
@@ -39,15 +39,13 @@ const initModel = (knex) => {
             return {success: false, error: "invalid_grant", code: 9374};
         }
 
-        // if (!user.role) {
-        //   return {success: false, error: "no_role"};
-        // }
-
-        // await setAuth({user_id: user.id});
+        if (!user.role) {
+          return {success: false, error: "no_role"};
+        }
 
         return {
             success: true,
-            user_id: user.id,
+            user,
         };
     }
 

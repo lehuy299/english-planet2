@@ -24,6 +24,7 @@ export const DatePicker = ({value, onChange, ...props}) => cs(
         return (
             <div className="date-picker">
                 {Dropdown({
+                    minExpandHeight: 260,
                     renderToggle: ({showExpand, showingExpand}) => (
                         <input
                             className="input"

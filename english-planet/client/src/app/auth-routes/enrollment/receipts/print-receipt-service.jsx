@@ -2,6 +2,7 @@ import React from "react";
 import {cs} from "cs-react";
 import {PrintService} from "../../../common/print-service/print-service";
 import {formatNumberBig} from "../../../../../../../common/formats/formats";
+import {getFigures} from "./receipt-helpers";
 
 export const PrintReceiptService = ({student, class1, next}) => cs(
     ["printService", ({}, next) => PrintService({
@@ -27,11 +28,7 @@ const rPrintedReceipt = ({receipt, class1, student}) => {
                     Class: {class1.name}
                 </div>
                 {(() => {
-                    const subtotal = receipt.amount;
-                    const discountAmount = !receipt.discount?.type ? 0 : (
-                        receipt.discount.type === "percent" ? (receipt.discount.value ?? 0) * subtotal : (receipt.discount.value ?? 0)
-                    );
-                    const total = subtotal - discountAmount;
+                    const {subtotal, discountAmount, total} = getFigures(receipt);
 
                     return (
                         <div className="total-area">

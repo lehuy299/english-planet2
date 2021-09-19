@@ -15,8 +15,6 @@ exports.hasClassDate = hasClassDate;
 
 const generateClassDatesForADate = ({date, classes, isAuto}) => {
     const getEachClass = (class1) => {
-        const d = new Date(date.year, date.month-1, date.day);
-        const day_of_week = d.getDay();
         if (hasClassDate(class1, date)) {
             return {
                 // id: JSON.stringify(date) + class1.id + Date.now(),
@@ -25,7 +23,6 @@ const generateClassDatesForADate = ({date, classes, isAuto}) => {
                 teacher_id: class1.teacher_id,
                 date,
                 time: class1.time || 7,
-                day_of_week,
                 auto_generated: isAuto,
             };
         }

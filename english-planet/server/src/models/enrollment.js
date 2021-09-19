@@ -35,7 +35,6 @@ const initModel = (knex) => {
     };
 
     const deleteEnrollmentsOfClass = async (classId) => {
-        await getEnrollmentsByClassId(classId).then(enrollments => enrollments.map(erm => Receipt.deleteReceiptsOfEnrollment(erm.id)));
         return await knex.del()
             .from(tableName)
             .where({class_id: classId})
@@ -43,6 +42,7 @@ const initModel = (knex) => {
 
     return {
         ...actions,
+        getEnrollmentsByClassId,
         getEnrollmentsByStudentIds,
         deleteEnrollmentsOfClass,
     }

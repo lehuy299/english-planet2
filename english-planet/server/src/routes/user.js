@@ -8,5 +8,5 @@ module.exports = [
         method: "GET",
         path: "/user/:id",
         controller: userControllers.getUser,
-    }, 
+    },
 ];

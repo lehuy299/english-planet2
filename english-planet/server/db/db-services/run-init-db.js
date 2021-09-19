@@ -1,6 +1,7 @@
 const mysql = require("mysql2");
 const {initDB} = require("./init-db");
 const schema = require("../schema/schema");
+const config = require("../../config/config");
 
 let con = mysql.createConnection({
     host: "localhost",
@@ -16,7 +17,7 @@ let con = mysql.createConnection({
 
         await initDB({
             con,
-            dbName: "english_planet",
+            dbName: config.db.connection.database,
             dbSchema: schema,
         });
        

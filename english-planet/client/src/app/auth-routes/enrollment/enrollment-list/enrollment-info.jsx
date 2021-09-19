@@ -4,7 +4,7 @@ import {equalDeep} from "../../../../../../../common/utils/equal-deep";
 import {EnrollmentForm} from "./enrollment-form";
 import {EnrollmentDetailsModal} from "../enrollment-modal/enrollment-details-modal";
 import "./enrollment-info.scss";
-import {ge, le} from "../../../../../../../common/utils/date-object";
+import {ge, getDow, le} from "../../../../../../../common/utils/date-object";
 import {PerformanceReportModal} from "../enrollment-modal/performance-report-modal";
 
 export const EnrollmentInfo = ({enrollment, oriErm, receipts, onDelete}) => cs(
@@ -19,7 +19,10 @@ export const EnrollmentInfo = ({enrollment, oriErm, receipts, onDelete}) => cs(
     ({resolve, apis, detailsModal, performanceReportModal, allClassDates}) => {
 
         const classDates = allClassDates?.filter((cd) =>
-            (!enrollment.value.date_start || ge(cd.date, enrollment.value.date_start)) && (!enrollment.value.date_end || le(cd.date, enrollment.value.date_end)) && (!enrollment.value.days_of_week || enrollment.value.days_of_week.includes(cd.day_of_week?.toString()))); 
+            (!enrollment.value.date_start || ge(cd.date, enrollment.value.date_start)) 
+            && (!enrollment.value.date_end || le(cd.date, enrollment.value.date_end)) 
+            && (!enrollment.value.days_of_week || enrollment.value.days_of_week.includes(getDow(cd.date)))
+        ); 
             
         return (
             <div className="enrollment-info-8g3">

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start-app-dev": "node ./deploy/start-app-dev.js"
+    "start-app-dev": "node ./deploy/start-app-dev.js",
+    "build-app-staging": "node ./deploy/build-app-staging.js"
   },
   "dependencies": {
     "cs-react": "^1.0.5",
@@ -16,5 +17,6 @@
     "react-router-dom": "^5.2.0"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {}
 }

@@ -2,6 +2,7 @@ const {Class} = require("../models/class");
 const {Enrollment} = require("../models/enrollment");
 const {ClassDate} = require("../models/class-date");
 const {omit} = require("../../../../common/utils/objects");
+const {Receipt} = require("../models/receipt");
 
 module.exports = [
     {
@@ -45,6 +46,10 @@ module.exports = [
                 return await Class.create(body);
             } else {
                 if (body.inactive) {
+                    const enrollments = await Enrollment.getEnrollmentsByClassId(body.id);
+                    if (enrollments?.length > 0) {
+                        await Receipt.deleteReceiptsOfEnrollments(enrollments.map((erm) => erm.id));
+                    }
                     await Enrollment.deleteEnrollmentsOfClass(body.id);
                     await ClassDate.deleteClassDatesOfClass(body.id);
                 }

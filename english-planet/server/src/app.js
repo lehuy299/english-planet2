@@ -1,6 +1,9 @@
 const express = require("express");
+const Path = require("path");
 const cors = require("cors");
-const routes = require("./routes/routes");
+const routes = require("./routes/auth-routes");
+const guestRoutes = require("./routes/guest-routes");
+const {authenticateJWT} = require("./middleware/auth-middleware");
 
 const serverApp = ({port}) => {
     const app = express();
@@ -11,6 +14,11 @@ const serverApp = ({port}) => {
         origin: 'http://localhost:3000'
     }));
 
+    app.use(express.static(Path.resolve(__dirname + "/../../client/deploy/dist")));
+
+    app.use('/api', guestRoutes);
+
+    app.use(authenticateJWT);
 
     app.use('/api', routes);
 

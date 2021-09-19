@@ -36,7 +36,7 @@ module.exports = [
     },
     {
         getClassDatesInDateRange: async ({params, query, body} = {}) => {
-            return await ClassDate.getClassDatesInDateRange(query);
+            return await ClassDate.getClassDatesInDateRange({dateRange: query});
         },
     },
 ];

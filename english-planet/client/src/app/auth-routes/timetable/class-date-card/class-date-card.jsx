@@ -33,7 +33,7 @@ export const ClassDateCard = ({next}) => cs(
                                 <div className="class-name">{class1.name}</div>
                             </div>
                             <div className="line">
-                                <div className="teacher">{teacher.name}</div>
+                                <div className="teacher">{teacher?.name || " "}</div>
                             </div>
                         </div>
                     )

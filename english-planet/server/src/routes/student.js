@@ -29,5 +29,10 @@ module.exports = [
         path: "/student/:id/enrollments",
         controller: studentControllers.upsertEnrollments,
     },
+    {
+        method: "GET",
+        path: "/students/unfinished-payment",
+        controller: studentControllers.getStudentsHavingUnfinishedPayment,
+    },
 ];
 

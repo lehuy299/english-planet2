@@ -27,9 +27,16 @@ const initModel = (knex) => {
             .where({enrollment_id: enrollmentId})
     };
 
+    const deleteReceiptsOfEnrollments = async (enrollmentIds) => {
+        return await knex.del()
+            .from(tableName)
+            .whereIn("enrollment_id", enrollmentIds)
+    };
+
     return {
         ...actions,
         deleteReceiptsOfEnrollment,
+        deleteReceiptsOfEnrollments
     }
 }
 exports.Receipt = createModel(initModel);

@@ -7,13 +7,14 @@ export const Layout = ({active, children}) => cs(
     consumeContext("auth"),
     consumeContext("routing"),
     ({auth, routing}) => {
+        const navLinks = getNavLinks(auth.user);
         return (
             <div className="dashboard-layout-4dg">
                 <div className="header">
                     <div className="logo">English Planet</div>
                     <div className="actions">
                         <div className="logout" onClick={() => auth.logout()}>
-                            Logout {auth.user?.name}
+                            Logout {auth.user?.full_name}
                         </div>
                     </div>
                 </div>
@@ -36,9 +37,9 @@ export const Layout = ({active, children}) => cs(
             </div>
         )
     }
-)
+);
 
-const navLinks = [
+const getNavLinks = (user) => [
     {
         name: "Dashboard",
         active: "dashboard",
@@ -74,11 +75,11 @@ const navLinks = [
         active: "timetable",
         to: "/timetable",
     },
-    {
-        name: "Route 1",
-        active: "route-1",
-        to: "/route-1",
-    },
-];
+    user.role === "admin" && {
+        name: "Setting",
+        active: "setting",
+        to: "/setting",
+    }
+].filter(v => v);
 
  

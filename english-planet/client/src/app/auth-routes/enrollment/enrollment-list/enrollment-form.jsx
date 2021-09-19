@@ -9,7 +9,7 @@ import {sum} from "../../../../../../../common/utils/collections";
 import {formatNumberBig} from "../../../../../../../common/formats/formats";
 import {spc} from "../../../../../../../common/react/state-path-change";
 import {bindInputNumber} from "../../../../../../../common/react/bind-input-number";
-import { DaysOfWeekSelect2 } from "../../../common/days-of-week-select";
+import { DaysOfWeekSelect } from "../../../common/days-of-week-select";
 
 export const EnrollmentForm = ({enrollment, classDates, receipts, notAllowChangingClass}) => cs(
     consumeContext("resolve"),
@@ -63,13 +63,13 @@ export const EnrollmentForm = ({enrollment, classDates, receipts, notAllowChangi
                     {(() => {
                         const {value, onChange} = scope(enrollment, ["days_of_week"]);
 
-                        return DaysOfWeekSelect2(
+                        return DaysOfWeekSelect(
                             {
                                 value: value || class1?.days_of_week,
                                 onChange,
                             },
                             class1?.days_of_week
-                            )
+                        )
                     })()}
                 </div>
                 <div className="form-group">
@@ -85,7 +85,7 @@ export const EnrollmentForm = ({enrollment, classDates, receipts, notAllowChangi
                     })()}
                 </div>
 
-                {class1 && classDates && (() => {
+                {class1 && classDates && class1.class_dates_generated ? (() => {
                     const numberOfClassDates = classDates.length;
                     const totalFee = numberOfClassDates * (enrollment.value.fee ?? class1.fee ?? 0);
                     const paidAndLeft = (() => {
@@ -113,7 +113,9 @@ export const EnrollmentForm = ({enrollment, classDates, receipts, notAllowChangi
                             {paidAndLeft}
                         </div>
                     )
-                })()}
+                })() : (
+                    <div>Please generate class dates</div>
+                )}
             </div>
         )
     }
